@@ -51,6 +51,7 @@ const Index = ({props, item, index}) => {
 
   const getStatus = (totalAmount, paidAmount) => {
     console.log('Transactionsssssssss', totalAmount, paidAmount);
+
     if (totalAmount === 0 || totalAmount === null) {
       setStatusIcon('checkmark-done-circle');
       setStatusMessage(FREE);
@@ -60,11 +61,11 @@ const Index = ({props, item, index}) => {
         setStatusIcon('checkmark-circle');
         setStatusMessage(COMPLETED);
         setStatusColor(colors.GREEN_1);
-      } else if (totalAmount > paidAmount) {
+      } else if (totalAmount > paidAmount && paidAmount !== 0) {
         setStatusIcon('ellipsis-horizontal-circle-sharp');
         setStatusMessage(PENDING);
         setStatusColor(colors.YELLOW);
-      } else {
+      } else if (paidAmount === 0) {
         setStatusIcon('alert-circle');
         setStatusMessage(NOT_COMPLETED);
         setStatusColor(colors.RED);

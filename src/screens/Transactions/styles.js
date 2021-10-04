@@ -8,6 +8,40 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.WHITE,
   },
+  modalContainer: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.WHITE,
+    height: '60%',
+    width: '90%',
+    borderRadius: 10,
+  },
+  applyFilterButton: {
+    flexDirection: 'row',
+    marginBottom: '2%',
+    padding: '3%',
+    backgroundColor: colors.PRIMARY,
+    width: '95%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+  },
+  applyFilterButtonText: {
+    fontSize: 16,
+    color: colors.WHITE,
+    marginRight: 5,
+  },
+  modalButton: {
+    flexDirection: 'row',
+    marginBottom: '2%',
+    padding: '3%',
+    backgroundColor: colors.PRIMARY,
+    width: '95%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+  },
 });
 
 export default styles;

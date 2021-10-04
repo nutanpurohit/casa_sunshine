@@ -26,9 +26,9 @@ import {useDispatch, useSelector} from 'react-redux';
 
 const Index = props => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user.user);
+  const user = useSelector(state => state.user?.user);
   const [isLoading, setIsLoading] = useState(false);
-
+  console.log('Props', props);
   const onDeleteUser = async () => {
     Alert.alert('Delete Profile', 'Are you sure?', [
       {
@@ -61,13 +61,13 @@ const Index = props => {
               <Title style={{color: colors.PRIMARY}}>Profile Details</Title>
             </Card.Content>
             <Card.Title
-              title={user.name}
-              subtitle={`Joined on ${moment(user.createdAt).format(
+              title={user?.name}
+              subtitle={`Joined on ${moment(user?.createdAt).format(
                 'DD-MM-YYYY',
               )}`}
             />
             <Card.Content>
-              <Title>{user.email}</Title>
+              <Title>{user?.email}</Title>
             </Card.Content>
             <Card.Actions>
               <Button color={colors.PRIMARY} onPress={() => alert('Update')}>
@@ -92,14 +92,17 @@ const Index = props => {
             <List.Item
               title="Home"
               left={props => <List.Icon {...props} icon="home" />}
+              onPress={() => props.navigation.navigate('HomeScreen')}
             />
             <List.Item
               title="Bookings"
               left={props => <List.Icon {...props} icon="calendar" />}
+              onPress={() => props.navigation.navigate('BookingsScreen')}
             />
             <List.Item
               title="Transactions"
               left={props => <List.Icon {...props} icon="credit-card" />}
+              onPress={() => props.navigation.navigate('TransactionScreen')}
             />
             <List.Item
               title="Reports"

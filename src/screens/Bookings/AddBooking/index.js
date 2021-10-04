@@ -197,7 +197,7 @@ const Index = props => {
                       mode="date"
                       placeholder="Check-in Date"
                       format="DD-MM-YYYY"
-                      minDate={new Date()}
+                      // minDate={new Date()}
                       // maxDate="2016-06-01"
                       confirmBtnText="Confirm"
                       cancelBtnText="Cancel"
@@ -219,7 +219,7 @@ const Index = props => {
                       mode="date"
                       placeholder="Check-out Date"
                       format="DD-MM-YYYY"
-                      minDate={new Date()}
+                      // minDate={new Date()}
                       // maxDate="2016-06-01"
                       confirmBtnText="Confirm"
                       cancelBtnText="Cancel"

@@ -6,11 +6,9 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
-  PermissionsAndroid,
-  Platform,
 } from 'react-native';
 import styles from './styles';
-import {Card, FAB, Paragraph, Title} from 'react-native-paper';
+import {Card, Title} from 'react-native-paper';
 import colors from '../../../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -18,9 +16,13 @@ import {getDaysArray, numberFormat} from '../../../constants/commonFunctions';
 import {useDispatch, useSelector} from 'react-redux';
 import * as agentAction from '../../../redux/actions/agentAction';
 import * as transactionAction from '../../../redux/actions/transactionAction';
-import {COMPLETED, NOT_COMPLETED, PENDING} from '../../../constants/constants';
+import {
+  COMPLETED,
+  FREE,
+  NOT_COMPLETED,
+  PENDING,
+} from '../../../constants/constants';
 import * as bookingAction from '../../../redux/actions/bookingAction';
-import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
 const Index = props => {
   const dispatch = useDispatch();
@@ -33,7 +35,6 @@ const Index = props => {
   const [stayStatusColor, setStayStatusColor] = useState('');
   const [status, setStatus] = useState('');
   const [showAgent, setShowAgent] = useState(false);
-  const [filePath, setFilePath] = useState('');
   let amount = 0;
   let agentData;
 
@@ -42,6 +43,10 @@ const Index = props => {
     await dispatch(bookingAction.fetchBookingById(bookingId));
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    fetchBookingById(bookingId);
+  }, []);
 
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
@@ -123,13 +128,26 @@ const Index = props => {
   }, []);
 
   const getStatus = async (totalAmount, paidAmount) => {
-    if (totalAmount === paidAmount) {
-      setStatus(COMPLETED);
-    } else if (totalAmount > paidAmount && paidAmount !== 0) {
-      setStatus(PENDING);
-    } else if (paidAmount === 0) {
-      setStatus(NOT_COMPLETED);
+    // if (totalAmount === paidAmount) {
+    //   setStatus(COMPLETED);
+    // } else if (totalAmount > paidAmount && paidAmount !== 0) {
+    //   setStatus(PENDING);
+    // } else if (paidAmount === 0) {
+    //   setStatus(NOT_COMPLETED);
+    // }
+    setIsLoading(true);
+    if (totalAmount === 0 || totalAmount === null) {
+      await setStatus(FREE);
+    } else {
+      if (totalAmount === paidAmount) {
+        await setStatus(COMPLETED);
+      } else if (totalAmount > paidAmount && paidAmount !== 0) {
+        await setStatus(PENDING);
+      } else if (paidAmount === 0) {
+        await setStatus(NOT_COMPLETED);
+      }
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -148,42 +166,6 @@ const Index = props => {
           await dispatch(bookingAction.deleteBooking(bookingId)),
       },
     ]);
-  };
-
-  const isPermitted = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          {
-            title: 'External Storage Write Permission',
-            message: 'App needs access to Storage data',
-          },
-        );
-        return granted === PermissionsAndroid.RESULTS.GRANTED;
-      } catch (err) {
-        alert('Write permission err', err);
-        return false;
-      }
-    } else {
-      return true;
-    }
-  };
-
-  const createPDF = async () => {
-    if (await isPermitted()) {
-      let options = {
-        //Content to print
-        html: '<h1 style="text-align: center;"><strong>Hello Guys</strong></h1><p style="text-align: center;">Here is an example of pdf Print in React Native</p><p style="text-align: center;"><strong>Team About React</strong></p>',
-        //File Name
-        fileName: 'test',
-        //File directory
-        directory: 'docs',
-      };
-      let file = await RNHTMLtoPDF.convert(options);
-      console.log(file.filePath);
-      setFilePath(file.filePath);
-    }
   };
 
   return isLoading ? (
@@ -406,12 +388,6 @@ const Index = props => {
             <Ionicons name={'close-circle'} color={colors.WHITE} size={25} />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.bookingHistoryContainer}
-          onPress={() => createPDF()}>
-          <Text style={styles.bookingHistoryText}>Save PDF</Text>
-          <Ionicons name={'arrow-down-circle'} color={colors.WHITE} size={25} />
-        </TouchableOpacity>
       </View>
     </ScrollView>
   );

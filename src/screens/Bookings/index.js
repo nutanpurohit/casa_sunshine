@@ -54,27 +54,6 @@ const Index = props => {
   return (
     <SafeAreaView>
       <View style={styles.mainContainer}>
-        {/*<Modal isVisible={showModal}>*/}
-        {/*  <View style={styles.modalContainer}>*/}
-        {/*    <Title>Filters</Title>*/}
-        {/*    <TouchableOpacity*/}
-        {/*      style={[styles.applyFilterButton, {padding: '4%'}]}*/}
-        {/*      onPress={() => setShowModal(false)}>*/}
-        {/*      <Text style={styles.applyFilterButtonText}>Apply Filter</Text>*/}
-        {/*    </TouchableOpacity>*/}
-        {/*    <TouchableOpacity*/}
-        {/*      style={[styles.applyFilterButton, {padding: '4%'}]}*/}
-        {/*      onPress={() => setShowModal(false)}>*/}
-        {/*      <Text style={styles.applyFilterButtonText}>Cancel</Text>*/}
-        {/*    </TouchableOpacity>*/}
-        {/*  </View>*/}
-        {/*</Modal>*/}
-        {/*<TouchableOpacity*/}
-        {/*  style={styles.applyFilterButton}*/}
-        {/*  onPress={() => setShowModal(true)}>*/}
-        {/*  <Text style={styles.applyFilterButtonText}>Apply Filter</Text>*/}
-        {/*  <Ionicons name={'filter'} color={colors.WHITE} size={25} />*/}
-        {/*</TouchableOpacity>*/}
         <View style={styles.navBarContainer}>
           <TouchableOpacity
             style={styles.navBarButtonContainer}
@@ -119,12 +98,7 @@ const Index = props => {
                     showsVerticalScrollIndicator={false}
                     renderItem={({item, index}) => {
                       return (
-                        <Booking
-                          props={props}
-                          item={item}
-                          index={index}
-                          status={'completed'}
-                        />
+                        <Booking props={props} item={item} index={index} />
                       );
                     }}
                     style={{width: '100%'}}
@@ -136,12 +110,7 @@ const Index = props => {
                     showsVerticalScrollIndicator={false}
                     renderItem={({item, index}) => {
                       return (
-                        <Booking
-                          props={props}
-                          item={item}
-                          index={index}
-                          status={'completed'}
-                        />
+                        <Booking props={props} item={item} index={index} />
                       );
                     }}
                     style={{width: '100%'}}
@@ -153,12 +122,7 @@ const Index = props => {
                     showsVerticalScrollIndicator={false}
                     renderItem={({item, index}) => {
                       return (
-                        <Booking
-                          props={props}
-                          item={item}
-                          index={index}
-                          status={'completed'}
-                        />
+                        <Booking props={props} item={item} index={index} />
                       );
                     }}
                     style={{width: '100%'}}
@@ -170,12 +134,7 @@ const Index = props => {
                     showsVerticalScrollIndicator={false}
                     renderItem={({item, index}) => {
                       return (
-                        <Booking
-                          props={props}
-                          item={item}
-                          index={index}
-                          status={'completed'}
-                        />
+                        <Booking props={props} item={item} index={index} />
                       );
                     }}
                     style={{width: '100%'}}

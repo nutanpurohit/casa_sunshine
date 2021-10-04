@@ -1,7 +1,6 @@
 import React from 'react';
 import {SET_LOGOUT, SET_LOGIN} from './types';
 import {
-  ADD_AGENT_URL,
   BASE_URL,
   USER_DELETE_URL,
   USER_LOGIN_URL,
@@ -50,6 +49,38 @@ export const login = (email, password) => {
           console.log('User not found', error);
           alert('Invalid credentials. Please try again');
         });
+
+      // fetch(API_URL, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({
+      //     email,
+      //     password,
+      //   }),
+      // })
+      //   .then(async response => {
+      //     console.log('User Action Login Response: ', response?.data);
+      //     if (!response) {
+      //       const resData = await response;
+      //       let message = 'Something went wrong!';
+      //       console.log('ResData', resData);
+      //       throw new Error(message);
+      //     }
+      //
+      //     const resData = await response;
+      //     saveDataToStorage(resData?.data?.token, resData?.data?.user);
+      //     dispatch({
+      //       type: SET_LOGIN,
+      //       token: resData?.data?.token,
+      //       user: resData?.data?.user,
+      //     });
+      //   })
+      //   .catch(error => {
+      //     console.log('User not found', error);
+      //     alert('Invalid credentials. Please try again');
+      //   });
     } catch (e) {
       throw new Error(e.message);
     }

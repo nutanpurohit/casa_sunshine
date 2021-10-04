@@ -59,6 +59,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     alignSelf: 'center',
   },
+  bookingContainer: {
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
 });
 
 export default styles;

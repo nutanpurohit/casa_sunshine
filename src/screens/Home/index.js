@@ -3,20 +3,74 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../../constants/colors';
-import {greetings, handleURL} from '../../constants/commonFunctions';
+import {
+  getDaysArray,
+  greetings,
+  handleURL,
+  numberFormat,
+} from '../../constants/commonFunctions';
 import morning from '../../assets/images/dawn.png';
 import afternoon from '../../assets/images/cloud.png';
 import evening from '../../assets/images/sunsets.png';
-import night from '../../assets/images/night.png';
 import {COVID_SAFETY, WEATHER_API} from '../../api/apiConstants';
 import axios from 'axios';
 import {Calendar} from 'react-native-calendars';
+import {useDispatch, useSelector} from 'react-redux';
+import * as bookingAction from '../../redux/actions/bookingAction';
+import moment from 'moment';
 
 const Index = props => {
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const [showCovidStatus, setShowCovidStatus] = useState(true);
   const [greetingText, setGreetingText] = useState('');
   const [greetingIcon, setGreetingIcon] = useState('');
+  const [currentMarkedDates, setCurrentMarkedDates] = useState(null);
   const [weather, setWeather] = useState(null);
+
+  console.log('Props', props);
+
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      fetchBookings();
+    });
+    return unsubscribe;
+  }, [props.navigation]);
+
+  const fetchBookings = async () => {
+    setIsLoading(true);
+    await dispatch(bookingAction.fetchAllBookings());
+    setIsLoading(false);
+  };
+
+  const bookingData = useSelector(state => state.booking?.bookingData);
+  const currentBookingData = useSelector(
+    state => state.booking?.currentBookingData,
+  );
+
+  useEffect(() => {
+    if (currentBookingData) {
+      let obj2 = {};
+      const dateArray = getDaysArray(
+        currentBookingData[0]?.checkInDate,
+        currentBookingData[0]?.checkOutDate,
+      );
+      dateArray.map((item, index) => {
+        dateArray[index] = moment(item).format('YYYY-MM-DD');
+      });
+
+      dateArray.map((item, index) => {
+        if (index === 0) {
+          obj2[item] = {startingDay: true, color: colors.SECONDARY};
+        } else if (index === dateArray.length - 1) {
+          obj2[item] = {endingDay: true, color: colors.SECONDARY};
+        } else {
+          obj2[item] = {color: colors.SECONDARY};
+        }
+      });
+      setCurrentMarkedDates(obj2);
+    }
+  }, []);
 
   const getWeather = async () => {
     console.log('API Call: ', WEATHER_API);
@@ -24,7 +78,7 @@ const Index = props => {
       .get(WEATHER_API)
       .then(response => {
         console.log('Weather response: ', response);
-        setWeather(response.data);
+        setWeather(response?.data);
       })
       .catch(error => {
         console.log('Weather error: ', error);
@@ -32,7 +86,7 @@ const Index = props => {
   };
 
   useEffect(() => {
-    // getWeather().then(r => console.log('Res', r));
+    getWeather();
     const greeting = greetings();
     if (greeting === 'morning') {
       setGreetingText('Good Morning');
@@ -44,7 +98,7 @@ const Index = props => {
       setGreetingText('Good Evening');
       setGreetingIcon(evening);
     }
-  });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -77,27 +131,56 @@ const Index = props => {
         </View>
         <View style={styles.titleRightContainer}>
           <Text style={styles.weatherText}>
-            {/*{Math.round(weather.main?.temp)} {'\xB0'}C*/}
-            {Math.round(25.75)} {'\xB0'}C
+            {Math.round(weather?.main?.temp)} {'\xB0'}C
+            {/*{Math.round(25.75)} {'\xB0'}C*/}
           </Text>
         </View>
         {/*<Ionicons name={'location'} color={colors.PRIMARY} size={25} />*/}
       </View>
       <View style={styles.calendarContainer}>
         <Text style={styles.calendarText}>Current Bookings</Text>
-        <Calendar
-          markingType={'period'}
-          markedDates={{
-            '2021-09-22': {startingDay: true, color: colors.SECONDARY},
-            '2021-09-23': {color: colors.SECONDARY},
-            '2021-09-24': {color: colors.SECONDARY},
-            '2021-09-25': {
-              color: colors.SECONDARY,
-              endingDay: true,
-            },
-          }}
-          // style={{backgroundColor: 'red'}}
-        />
+        <Calendar markingType={'period'} markedDates={currentMarkedDates} />
+      </View>
+      <View style={styles.bookingContainer}>
+        {/*<Text>{`${currentBookingData[0]?.firstName} ${currentBookingData[0]?.lastName}`}</Text>*/}
+        {/*<TouchableOpacity*/}
+        {/*  style={styles.container}*/}
+        {/*  onPress={() =>*/}
+        {/*    props.navigation.navigate('BookingDetailsScreen', {*/}
+        {/*      props,*/}
+        {/*      currentBookingData,*/}
+        {/*    })*/}
+        {/*  }>*/}
+        {/*  <View style={styles.titleContainer}>*/}
+        {/*    <Text*/}
+        {/*      style={*/}
+        {/*        styles.titleText*/}
+        {/*      }>{`${currentBookingData[0]?.firstName} ${currentBookingData[0]?.lastName}`}</Text>*/}
+        {/*    <Text style={styles.titleText}>4 Days 3 Nights</Text>*/}
+        {/*  </View>*/}
+        {/*  <View style={styles.dateContainer}>*/}
+        {/*    <Text style={styles.dateText}>*/}
+        {/*      Check in:{' '}*/}
+        {/*      {moment(currentBookingData[0]?.checkInDate).format('DD-MM-YYYY')}*/}
+        {/*    </Text>*/}
+        {/*    <Text style={styles.dateText}>*/}
+        {/*      Check out:{' '}*/}
+        {/*      {moment(currentBookingData[0]?.checkOutDate).format('DD-MM-YYYY')}*/}
+        {/*    </Text>*/}
+        {/*  </View>*/}
+        {/*  <View style={styles.paymentContainer}>*/}
+        {/*    <Text style={styles.paymentText}>*/}
+        {/*      Total Amount:{' '}*/}
+        {/*      {currentBookingData[0]?.totalAmount >= 0*/}
+        {/*        ? numberFormat(currentBookingData[0]?.totalAmount)*/}
+        {/*        : numberFormat(0)}*/}
+        {/*    </Text>*/}
+        {/*  </View>*/}
+        {/*  <View style={styles.moreInfoContainer}>*/}
+        {/*    <Ionicons name={'add-circle'} color={colors.PRIMARY} size={30} />*/}
+        {/*    <Text style={styles.moreInfoText}>More Info</Text>*/}
+        {/*  </View>*/}
+        {/*</TouchableOpacity>*/}
       </View>
     </View>
   );
