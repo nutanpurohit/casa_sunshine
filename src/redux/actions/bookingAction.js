@@ -36,8 +36,10 @@ export const fetchAllBookings = () => {
               moment(new Date()).format('MM-DD-YYYY 05:30'),
             );
             if (
-              currentDate >= new Date(item.checkInDate) &&
-              currentDate <= new Date(item.checkOutDate)
+              currentDate >=
+                new Date(moment(item.checkInDate).format('MM-DD-YYYY 05:30')) &&
+              currentDate <=
+                new Date(moment(item.checkOutDate).format('MM-DD-YYYY 05:30'))
             ) {
               return item;
             }
@@ -120,7 +122,10 @@ export const fetchAllHistory = bookingId => {
         })
         .then(response => {
           console.log('Response', response);
-          const historyData = response.data;
+          let historyData = response.data;
+          historyData.sort((a, b) => {
+            return new Date(b.updatedAt) - new Date(a.updatedAt);
+          });
           dispatch({type: HISTORY_DATA, historyData});
         })
         .catch(err => {

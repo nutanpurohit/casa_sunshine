@@ -1,12 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../../../constants/colors';
 import moment from 'moment';
 import {dayCount, numberFormat} from '../../../constants/commonFunctions';
 import {useDispatch, useSelector} from 'react-redux';
-import * as transactionAction from '../../../redux/actions/transactionAction';
 import {
   COMPLETED,
   FREE,
@@ -15,32 +14,19 @@ import {
 } from '../../../constants/constants';
 
 const Index = ({props, item, index}) => {
-  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const [statusIcon, setStatusIcon] = useState('');
   const [statusColor, setStatusColor] = useState();
   const [statusMessage, setStatusMessage] = useState('');
-  let amount = 0;
-
-  const fetchAllTransactions = async () => {
-    await dispatch(transactionAction.allTransactions());
-  };
-
-  useEffect(() => {
-    fetchAllTransactions();
-  }, []);
-
-  useEffect(() => {
-    const unsubscribe = props.navigation.addListener('focus', () => {
-      fetchAllTransactions();
-    });
-    return unsubscribe;
-  }, [props.navigation]);
+  const [days, setDays] = useState(0);
+  const [nights, setNights] = useState(0);
 
   const transactionData = useSelector(
     state => state.transaction?.allTransactionData,
   );
   console.log('Transaction Data', transactionData);
 
+  let amount = 0;
   if (transactionData) {
     transactionData?.map(item1 => {
       if (item1.bookingId === item.id) {
@@ -50,8 +36,6 @@ const Index = ({props, item, index}) => {
   }
 
   const getStatus = (totalAmount, paidAmount) => {
-    console.log('Transactionsssssssss', totalAmount, paidAmount);
-
     if (totalAmount === 0 || totalAmount === null) {
       setStatusIcon('checkmark-done-circle');
       setStatusMessage(FREE);
@@ -75,7 +59,13 @@ const Index = ({props, item, index}) => {
 
   useEffect(() => {
     getStatus(item?.totalAmount, amount);
-  }, [props.navigation]);
+    setDays(dayCount(item?.checkInDate, item?.checkOutDate));
+    if (days > 0) {
+      setNights(days - 1);
+    } else {
+      setNights(0);
+    }
+  }, []);
 
   return (
     <TouchableOpacity
@@ -85,6 +75,7 @@ const Index = ({props, item, index}) => {
           props,
           item,
           index,
+          status: statusMessage,
         })
       }>
       <View style={styles.titleContainer}>
@@ -92,7 +83,9 @@ const Index = ({props, item, index}) => {
           style={
             styles.titleText
           }>{`${item?.firstName} ${item?.lastName}`}</Text>
-        <Text style={styles.titleText}>4 Days 3 Nights</Text>
+        <Text style={styles.titleText}>{`${days} Days ${
+          days - 1
+        } Nights`}</Text>
       </View>
       <View style={styles.dateContainer}>
         <Text style={styles.dateText}>

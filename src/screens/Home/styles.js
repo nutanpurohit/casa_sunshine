@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.WHITE,
   },
+  scrollView: {},
   covidStatusContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',

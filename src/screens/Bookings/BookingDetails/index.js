@@ -30,13 +30,16 @@ const Index = props => {
   const item = props.route.params.item;
   const bookingId = item?.id;
   const agentId = item?.agentId;
+  const status = props.route.params.status;
   const [isLoading, setIsLoading] = useState(false);
   const [stayStatus, setStayStatus] = useState('');
   const [stayStatusColor, setStayStatusColor] = useState('');
-  const [status, setStatus] = useState('');
+  // const [status, setStatus] = useState('');
   const [showAgent, setShowAgent] = useState(false);
   let amount = 0;
   let agentData;
+
+  console.log('Props', props.route.params.status);
 
   const fetchBookingById = async bookingId => {
     setIsLoading(true);
@@ -127,32 +130,32 @@ const Index = props => {
     statusOfStay(bookingData?.checkInDate, bookingData?.checkOutDate);
   }, []);
 
-  const getStatus = async (totalAmount, paidAmount) => {
-    // if (totalAmount === paidAmount) {
-    //   setStatus(COMPLETED);
-    // } else if (totalAmount > paidAmount && paidAmount !== 0) {
-    //   setStatus(PENDING);
-    // } else if (paidAmount === 0) {
-    //   setStatus(NOT_COMPLETED);
-    // }
-    setIsLoading(true);
-    if (totalAmount === 0 || totalAmount === null) {
-      await setStatus(FREE);
-    } else {
-      if (totalAmount === paidAmount) {
-        await setStatus(COMPLETED);
-      } else if (totalAmount > paidAmount && paidAmount !== 0) {
-        await setStatus(PENDING);
-      } else if (paidAmount === 0) {
-        await setStatus(NOT_COMPLETED);
-      }
-    }
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    getStatus(bookingData?.totalAmount, amount);
-  }, []);
+  // const getStatus = async (totalAmount, paidAmount) => {
+  //   // if (totalAmount === paidAmount) {
+  //   //   setStatus(COMPLETED);
+  //   // } else if (totalAmount > paidAmount && paidAmount !== 0) {
+  //   //   setStatus(PENDING);
+  //   // } else if (paidAmount === 0) {
+  //   //   setStatus(NOT_COMPLETED);
+  //   // }
+  //   setIsLoading(true);
+  //   if (totalAmount === 0 || totalAmount === null) {
+  //     await setStatus(FREE);
+  //   } else {
+  //     if (totalAmount === paidAmount) {
+  //       await setStatus(COMPLETED);
+  //     } else if (totalAmount > paidAmount && paidAmount !== 0) {
+  //       await setStatus(PENDING);
+  //     } else if (paidAmount === 0) {
+  //       await setStatus(NOT_COMPLETED);
+  //     }
+  //   }
+  //   setIsLoading(false);
+  // };
+  //
+  // useEffect(() => {
+  //   getStatus(bookingData?.totalAmount, amount);
+  // }, []);
 
   const onDeleteBooking = bookingId => {
     Alert.alert('Delete Booking', 'Are you sure?', [

@@ -8,19 +8,13 @@ import {
   RefreshControl,
   Text,
 } from 'react-native';
-import styles from './styles';
-import Booking from '../../components/UI/Booking';
-// import NavigationBar from '../../components/UI/NavigationBar';
-import * as bookingAction from '../../redux/actions/bookingAction';
 import {useDispatch, useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import styles from './styles';
 import colors from '../../constants/colors';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from '../../config/ResponsiveScreen';
-import Modal from 'react-native-modal';
-import {Title} from 'react-native-paper';
+import Booking from '../../components/UI/Booking';
+import * as bookingAction from '../../redux/actions/bookingAction';
+import * as transactionAction from '../../redux/actions/transactionAction';
 
 const Index = props => {
   const dispatch = useDispatch();
@@ -35,9 +29,22 @@ const Index = props => {
     return unsubscribe;
   }, [props.navigation]);
 
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      fetchAllTransactions();
+    });
+    return unsubscribe;
+  }, [props.navigation]);
+
   const fetchBookings = async () => {
     setIsLoading(true);
     await dispatch(bookingAction.fetchAllBookings());
+    setIsLoading(false);
+  };
+
+  const fetchAllTransactions = async () => {
+    setIsLoading(true);
+    await dispatch(transactionAction.allTransactions());
     setIsLoading(false);
   };
 
@@ -98,7 +105,12 @@ const Index = props => {
                     showsVerticalScrollIndicator={false}
                     renderItem={({item, index}) => {
                       return (
-                        <Booking props={props} item={item} index={index} />
+                        <Booking
+                          props={props}
+                          item={item}
+                          index={index}
+                          // status={status}
+                        />
                       );
                     }}
                     style={{width: '100%'}}

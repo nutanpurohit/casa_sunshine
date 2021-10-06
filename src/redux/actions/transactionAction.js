@@ -75,7 +75,7 @@ export const allTransactions = () => {
     const API_URL = BASE_URL + ALL_TRANSACTION_URL;
     console.log('API URL', API_URL);
     try {
-      const token = getState().user.token;
+      const token = getState().user?.token;
       axios
         .get(API_URL, {
           headers: {
@@ -85,7 +85,7 @@ export const allTransactions = () => {
         })
         .then(response => {
           console.log('Response', response);
-          const allTransactionData = response.data;
+          const allTransactionData = response?.data;
           allTransactionData.sort((a, b) => {
             return new Date(b.createdAt) - new Date(a.createdAt);
           });

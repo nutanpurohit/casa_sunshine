@@ -34,11 +34,15 @@ export const numberFormat = value => {
 };
 
 export const dayCount = (checkInDate, checkOutDate) => {
-  const timeDiff =
-    new Date(moment(checkOutDate).format('DD-MM-YYYY')).getTime() -
-    new Date(moment(checkOutDate).format('DD-MM-YYYY')).getTime();
-  const dayDiff = timeDiff / (1000 * 60 * 60 * 24);
-  return dayDiff;
+  console.log('Datessss', new Date(checkInDate), new Date(checkOutDate));
+  // const startDate = moment(new Date(checkInDate)).format('MM-DD-YYYY');
+  // const endDate = moment(new Date(checkOutDate)).format('MM-DD-YYYY');
+  const startDate = new Date(checkInDate);
+  const endDate = new Date(checkOutDate);
+
+  const Difference_In_Time = endDate.getTime() - startDate.getTime();
+  const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+  return parseInt(Difference_In_Days.toString());
 };
 
 const addDays = function (current, days) {
@@ -59,4 +63,8 @@ export const getDaysArray = function (start, end) {
     currentDate = addDays(currentDate, 1);
   }
   return dateArray;
+};
+
+export const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
 };

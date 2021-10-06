@@ -74,7 +74,7 @@ const Index = props => {
             })}
           </Picker>
           <TouchableOpacity
-            style={[styles.applyFilterButton, {padding: '4%'}]}
+            style={[styles.modalButton, {padding: '4%'}]}
             onPress={() => {
               setShowModal(false);
               applyFilter(selectedAccountType);
@@ -82,7 +82,7 @@ const Index = props => {
             <Text style={styles.applyFilterButtonText}>Apply Filter</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.applyFilterButton, {padding: '4%'}]}
+            style={[styles.modalButton, {padding: '4%'}]}
             onPress={() => {
               setShowModal(false);
               setFilter(false);
@@ -90,7 +90,10 @@ const Index = props => {
             <Text style={styles.applyFilterButtonText}>Clear Filter</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.applyFilterButton, {padding: '4%'}]}
+            style={[
+              styles.modalButton,
+              {padding: '4%', backgroundColor: colors.RED},
+            ]}
             onPress={() => setShowModal(false)}>
             <Text style={styles.applyFilterButtonText}>Cancel</Text>
           </TouchableOpacity>
