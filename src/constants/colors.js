@@ -9,8 +9,13 @@ const colors = {
   GREEN_1: '#81D742',
   GREEN_2: '#61CE70',
   GREEN_3: '#25D366',
+  GRAY_1: '#54595F',
+  GRAY_2: '#7A7A7A',
+  GRAY_3: '#A19E9E',
+  GRAY_4: '#8C8C8C',
   YELLOW: '#F1C40F',
   FACEBOOK: '#4267B2',
+  AIRBNB: '#FF585D',
 };
 
 export default colors;

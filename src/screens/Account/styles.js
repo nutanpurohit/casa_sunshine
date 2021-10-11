@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   followContainer: {
-    width: '40%',
+    width: '60%',
     marginVertical: 10,
     alignSelf: 'center',
     flexDirection: 'row',

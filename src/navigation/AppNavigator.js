@@ -6,6 +6,8 @@ import HomeNavigator from './HomeNavigator';
 import BookingsNavigator from './BookingsNavigator';
 import TransactionsNavigator from './TransactionsNavigator';
 import AccountNavigator from './AccountNavigator';
+import AgentNavigator from './AgentNavigator';
+import MaterialCommunityIcon from 'react-native-paper/src/components/MaterialCommunityIcon';
 
 const Tab = createBottomTabNavigator();
 
@@ -47,6 +49,16 @@ const AppNavigator = () => {
           tabBarLabel: 'Transactions',
           tabBarIcon: ({color, size}) => (
             <Ionicons name="card" color={color} size={30} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Agents"
+        component={AgentNavigator}
+        options={{
+          tabBarLabel: 'Agents',
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcon name="face-agent" color={color} size={30} />
           ),
         }}
       />

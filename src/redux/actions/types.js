@@ -14,6 +14,7 @@ export const HISTORY_DATA = 'HISTORY_DATA';
 
 // Agent
 export const AGENT_DATA = 'AGENT_DATA';
+export const ALL_AGENT_DATA = 'ALL_AGENT_DATA';
 
 // Transaction
 export const TRANSACTION_DATA = 'TRANSACTION_DATA';

@@ -8,6 +8,7 @@ import AddBooking from '../screens/Bookings/AddBooking';
 import UpdateBooking from '../screens/Bookings/UpdateBooking';
 import BookingTransaction from '../screens/Bookings/BookingTransaction';
 import AddTransaction from '../screens/Bookings/AddTransaction';
+import BookingReport from '../screens/Bookings/BookingReport';
 import colors from '../constants/colors';
 
 const Stack = createStackNavigator();
@@ -72,6 +73,13 @@ const BookingsNavigator = props => {
         component={AddTransaction}
         options={{
           headerTitle: 'Add Transaction',
+        }}
+      />
+      <Stack.Screen
+        name="BookingReportScreen"
+        component={BookingReport}
+        options={{
+          headerTitle: 'Booking Report',
         }}
       />
     </Stack.Navigator>

@@ -1,6 +1,4 @@
-import {useCallback} from 'react';
 import {Linking} from 'react-native';
-import moment from 'moment';
 
 export const greetings = () => {
   const d = new Date();
@@ -34,9 +32,6 @@ export const numberFormat = value => {
 };
 
 export const dayCount = (checkInDate, checkOutDate) => {
-  console.log('Datessss', new Date(checkInDate), new Date(checkOutDate));
-  // const startDate = moment(new Date(checkInDate)).format('MM-DD-YYYY');
-  // const endDate = moment(new Date(checkOutDate)).format('MM-DD-YYYY');
   const startDate = new Date(checkInDate);
   const endDate = new Date(checkOutDate);
 

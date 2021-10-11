@@ -1,7 +1,8 @@
-import {AGENT_DATA} from '../actions/types';
+import {AGENT_DATA, ALL_AGENT_DATA} from '../actions/types';
 
 const initialState = {
   agentData: null,
+  allAgentData: null,
 };
 
 export function agentReducer(state = initialState, action) {
@@ -11,6 +12,12 @@ export function agentReducer(state = initialState, action) {
       return {
         ...state,
         agentData: action.agentData,
+      };
+    case ALL_AGENT_DATA:
+      console.log('Agent reducers: ', action);
+      return {
+        ...state,
+        allAgentData: action.agentData,
       };
     default:
       return state;

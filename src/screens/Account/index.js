@@ -14,11 +14,14 @@ import {Button, Card, List, Paragraph, Title} from 'react-native-paper';
 import moment from 'moment';
 import colors from '../../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {
   ABOUT_US,
+  AIRBNB_FOLLOW,
   COVID_SAFETY,
   FACEBOOK_FOLLOW,
   INSTAGRAM_FOLLOW,
+  MAKE_RESERVATION,
 } from '../../api/apiConstants';
 import {handleURL} from '../../constants/commonFunctions';
 import * as userAction from '../../redux/actions/userAction';
@@ -113,6 +116,11 @@ const Index = props => {
               left={props => <List.Icon {...props} icon="cog" />}
             />
             <List.Item
+              title="Make a Reservation"
+              left={props => <List.Icon {...props} icon="bookmark" />}
+              onPress={() => handleURL(MAKE_RESERVATION)}
+            />
+            <List.Item
               title="Contact Us"
               left={props => <List.Icon {...props} icon="phone" />}
             />
@@ -147,6 +155,12 @@ const Index = props => {
               style={{width: 30, height: 30}}
             />
           </TouchableOpacity>
+          <FontAwesome5
+            name={'airbnb'}
+            color={colors.AIRBNB}
+            size={30}
+            onPress={() => handleURL(AIRBNB_FOLLOW)}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

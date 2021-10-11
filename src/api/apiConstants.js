@@ -33,6 +33,7 @@ export const UPDATE_BOOKING_URL = 'bookings/update';
 export const DELETE_BOOKING_URL = 'bookings/delete';
 export const BOOKING_BY_ID_URL = 'bookings/bookingById';
 export const BOOKING_BY_AGENT_ID_URL = 'bookings/bookingByAgentId';
+export const GENERATE_BOOKING_REPORT_URL = 'bookings/generateBookingPDF';
 
 // BOOKING HISTORY
 export const BOOKING_HISTORY_BY_ID = 'bookings/history/bookingHistoryById';
@@ -51,6 +52,8 @@ export const TRANSACTION_BY_BOOKING_ID_URL =
 // OTHERS
 export const COVID_SAFETY =
   'https://casasunshinegoa.com/covid-19-guidelines-for-casa-sunshine-goa-villa/';
+export const MAKE_RESERVATION = 'reservation@casasunshinegoa.com';
 export const ABOUT_US = 'https://casasunshinegoa.com/about-us/';
 export const FACEBOOK_FOLLOW = 'https://www.facebook.com/casasunshinegoa/';
 export const INSTAGRAM_FOLLOW = 'https://www.instagram.com/casasunshinegoa/';
+export const AIRBNB_FOLLOW = 'https://airbnb.com/h/casa-sunshine-goa';

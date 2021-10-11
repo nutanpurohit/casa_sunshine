@@ -36,10 +36,6 @@ const Index = props => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [selectedAccountType, setSelectedAccountType] = useState('');
-  const item = props.route.params;
-  console.log('Item', item);
-  const bookingId = item.id;
   const accountType = [
     {type: ACCOUNT1},
     {type: ACCOUNT2},
@@ -47,6 +43,12 @@ const Index = props => {
     {type: ACCOUNT4},
     {type: ACCOUNT5},
   ];
+  const [selectedAccountType, setSelectedAccountType] = useState(
+    accountType[0].type,
+  );
+  const item = props.route.params;
+  console.log('Item', item);
+  const bookingId = item.id;
 
   const checkTransaction = async (bookingId, data, selectedAccountType) => {
     if (item.totalAmount === item.amount) {

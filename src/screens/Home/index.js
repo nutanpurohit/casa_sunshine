@@ -23,10 +23,10 @@ import afternoon from '../../assets/images/cloud.png';
 import evening from '../../assets/images/sunsets.png';
 import {COVID_SAFETY, WEATHER_API} from '../../api/apiConstants';
 import axios from 'axios';
+import moment from 'moment';
 import {Calendar} from 'react-native-calendars';
 import {useDispatch, useSelector} from 'react-redux';
 import * as bookingAction from '../../redux/actions/bookingAction';
-import moment from 'moment';
 import * as transactionAction from '../../redux/actions/transactionAction';
 
 const Index = props => {
@@ -37,7 +37,7 @@ const Index = props => {
   const [greetingIcon, setGreetingIcon] = useState('');
   const [currentMarkedDates, setCurrentMarkedDates] = useState(null);
   const [weather, setWeather] = useState(null);
-  const [refreshing, setRefreshing] = React.useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -57,10 +57,11 @@ const Index = props => {
     setIsLoading(false);
   };
 
-  const bookingData = useSelector(state => state.booking?.bookingData);
+  const bookingData = useSelector(state => state?.booking?.bookingData);
   const currentBookingData = useSelector(
-    state => state.booking?.currentBookingData,
+    state => state?.booking?.currentBookingData,
   );
+  console.log('Current Booking', currentBookingData);
 
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
@@ -174,45 +175,9 @@ const Index = props => {
           <Calendar markingType={'period'} markedDates={currentMarkedDates} />
         </View>
         <View style={styles.bookingContainer}>
-          {/*<Text>{`${currentBookingData[0]?.firstName} ${currentBookingData[0]?.lastName}`}</Text>*/}
-          {/*<TouchableOpacity*/}
-          {/*  style={styles.container}*/}
-          {/*  onPress={() =>*/}
-          {/*    props.navigation.navigate('BookingDetailsScreen', {*/}
-          {/*      props,*/}
-          {/*      currentBookingData,*/}
-          {/*    })*/}
-          {/*  }>*/}
-          {/*  <View style={styles.titleContainer}>*/}
-          {/*    <Text*/}
-          {/*      style={*/}
-          {/*        styles.titleText*/}
-          {/*      }>{`${currentBookingData[0]?.firstName} ${currentBookingData[0]?.lastName}`}</Text>*/}
-          {/*    <Text style={styles.titleText}>4 Days 3 Nights</Text>*/}
-          {/*  </View>*/}
-          {/*  <View style={styles.dateContainer}>*/}
-          {/*    <Text style={styles.dateText}>*/}
-          {/*      Check in:{' '}*/}
-          {/*      {moment(currentBookingData[0]?.checkInDate).format('DD-MM-YYYY')}*/}
-          {/*    </Text>*/}
-          {/*    <Text style={styles.dateText}>*/}
-          {/*      Check out:{' '}*/}
-          {/*      {moment(currentBookingData[0]?.checkOutDate).format('DD-MM-YYYY')}*/}
-          {/*    </Text>*/}
-          {/*  </View>*/}
-          {/*  <View style={styles.paymentContainer}>*/}
-          {/*    <Text style={styles.paymentText}>*/}
-          {/*      Total Amount:{' '}*/}
-          {/*      {currentBookingData[0]?.totalAmount >= 0*/}
-          {/*        ? numberFormat(currentBookingData[0]?.totalAmount)*/}
-          {/*        : numberFormat(0)}*/}
-          {/*    </Text>*/}
-          {/*  </View>*/}
-          {/*  <View style={styles.moreInfoContainer}>*/}
-          {/*    <Ionicons name={'add-circle'} color={colors.PRIMARY} size={30} />*/}
-          {/*    <Text style={styles.moreInfoText}>More Info</Text>*/}
-          {/*  </View>*/}
-          {/*</TouchableOpacity>*/}
+          <TouchableOpacity style={styles.bookingButton}>
+            <Text style={styles.bookingText}>View Current Booking</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>

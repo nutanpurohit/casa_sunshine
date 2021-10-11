@@ -63,7 +63,19 @@ const styles = StyleSheet.create({
   bookingContainer: {
     paddingHorizontal: 20,
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
+  },
+  bookingButton: {
+    padding: 15,
+    width: '95%',
+    backgroundColor: colors.PRIMARY,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+  bookingText: {
+    color: colors.WHITE,
+    fontSize: 18,
   },
 });
 

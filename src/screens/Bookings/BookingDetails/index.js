@@ -130,33 +130,6 @@ const Index = props => {
     statusOfStay(bookingData?.checkInDate, bookingData?.checkOutDate);
   }, []);
 
-  // const getStatus = async (totalAmount, paidAmount) => {
-  //   // if (totalAmount === paidAmount) {
-  //   //   setStatus(COMPLETED);
-  //   // } else if (totalAmount > paidAmount && paidAmount !== 0) {
-  //   //   setStatus(PENDING);
-  //   // } else if (paidAmount === 0) {
-  //   //   setStatus(NOT_COMPLETED);
-  //   // }
-  //   setIsLoading(true);
-  //   if (totalAmount === 0 || totalAmount === null) {
-  //     await setStatus(FREE);
-  //   } else {
-  //     if (totalAmount === paidAmount) {
-  //       await setStatus(COMPLETED);
-  //     } else if (totalAmount > paidAmount && paidAmount !== 0) {
-  //       await setStatus(PENDING);
-  //     } else if (paidAmount === 0) {
-  //       await setStatus(NOT_COMPLETED);
-  //     }
-  //   }
-  //   setIsLoading(false);
-  // };
-  //
-  // useEffect(() => {
-  //   getStatus(bookingData?.totalAmount, amount);
-  // }, []);
-
   const onDeleteBooking = bookingId => {
     Alert.alert('Delete Booking', 'Are you sure?', [
       {
@@ -165,10 +138,16 @@ const Index = props => {
       },
       {
         text: 'Yes',
-        onPress: async () =>
-          await dispatch(bookingAction.deleteBooking(bookingId)),
+        onPress: async () => {
+          await dispatch(bookingAction.deleteBooking(bookingId));
+        },
       },
     ]);
+  };
+
+  const onGenerateBookingReport = async bookingId => {
+    await dispatch(bookingAction.generateBookingReport(bookingId));
+    props.navigation.navigate('BookingReportScreen');
   };
 
   return isLoading ? (
@@ -391,6 +370,12 @@ const Index = props => {
             <Ionicons name={'close-circle'} color={colors.WHITE} size={25} />
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          style={styles.bookingHistoryContainer}
+          onPress={() => onGenerateBookingReport(bookingId)}>
+          <Text style={styles.bookingHistoryText}>Generate Report</Text>
+          <Ionicons name={'arrow-down-circle'} color={colors.WHITE} size={25} />
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

@@ -7,6 +7,7 @@ import {
   BOOKING_BY_ID_URL,
   BOOKING_HISTORY_BY_BOOKING_ID_URL,
   DELETE_BOOKING_URL,
+  GENERATE_BOOKING_REPORT_URL,
   UPDATE_BOOKING_URL,
 } from '../../api/apiConstants';
 import {BOOKING_DATA, BOOKING_DATA_BY_ID, HISTORY_DATA} from './types';
@@ -261,6 +262,40 @@ export const updateBooking = bookingData => {
         .catch(error => {
           console.log('Booking already exists', error);
           alert('Booking already exists!');
+        });
+    } catch (e) {
+      throw new Error(e.message);
+    }
+  };
+};
+
+export const generateBookingReport = bookingId => {
+  return async (dispatch, getState) => {
+    const API_URL = BASE_URL + GENERATE_BOOKING_REPORT_URL + `/${bookingId}`;
+    console.log('API URL', API_URL);
+    try {
+      const token = getState().user.token;
+      axios
+        .post(
+          API_URL,
+          {},
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + token,
+            },
+          },
+        )
+        .then(async response => {
+          console.log(
+            'Booking Action Generate Report Response: ',
+            response.data,
+          );
+          alert('Booking Report Generated successfully!');
+        })
+        .catch(error => {
+          console.log('Booking report generation error', error);
+          alert('Booking  report generation error!');
         });
     } catch (e) {
       throw new Error(e.message);

@@ -59,7 +59,7 @@ const Index = props => {
   console.log('Booking', bookingData);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <View style={styles.mainContainer}>
         <View style={styles.navBarContainer}>
           <TouchableOpacity

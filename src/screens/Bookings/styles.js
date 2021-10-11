@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     padding: 10,
     right: wp('5'),
-    bottom: hp('0'),
+    bottom: hp('2'),
     backgroundColor: colors.PRIMARY,
   },
   applyFilterButton: {

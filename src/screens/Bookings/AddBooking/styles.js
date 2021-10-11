@@ -82,8 +82,15 @@ const styles = StyleSheet.create({
     paddingVertical: '5%',
   },
   typeContainer: {
-    width: '100%',
+    width: '60%',
+    flexDirection: 'row',
     // paddingVertical: '5%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  agentTypeText: {
+    fontSize: 18,
+    color: colors.BLACK,
   },
   picker: {},
   dateTextInput: {

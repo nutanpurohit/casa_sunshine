@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import colors from '../../../constants/colors';
-import {Button, TextInput} from 'react-native-paper';
+import {Button, RadioButton, TextInput} from 'react-native-paper';
 import * as Yup from 'yup';
 import {useDispatch} from 'react-redux';
 import {Formik} from 'formik';
@@ -337,62 +337,103 @@ const Index = props => {
                     <Text style={styles.title}>Agent Details</Text>
                   </View>
                   <View style={styles.typeContainer}>
-                    <Picker
-                      name={agentType}
-                      selectedValue={selectedAgentType}
-                      style={styles.picker}
-                      mode={'modal'}
-                      onValueChange={itemValue => {
-                        setSelectedAgentType(itemValue);
+                    {/*<Picker*/}
+                    {/*  name={agentType}*/}
+                    {/*  selectedValue={selectedAgentType}*/}
+                    {/*  style={styles.picker}*/}
+                    {/*  mode={'modal'}*/}
+                    {/*  onValueChange={itemValue => {*/}
+                    {/*    setSelectedAgentType(itemValue);*/}
+                    {/*  }}>*/}
+                    {/*  {agentType.map((s, i) => {*/}
+                    {/*    return (*/}
+                    {/*      <Picker.Item value={s.type} label={s.type} key={i} />*/}
+                    {/*    );*/}
+                    {/*  })}*/}
+                    {/*</Picker>*/}
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}>
-                      {agentType.map((s, i) => {
-                        return (
-                          <Picker.Item value={s.type} label={s.type} key={i} />
-                        );
-                      })}
-                    </Picker>
+                      <RadioButton.Android
+                        value={AGENT}
+                        color={colors.PRIMARY}
+                        status={
+                          selectedAgentType === AGENT ? 'checked' : 'unchecked'
+                        }
+                        onPress={() => setSelectedAgentType(AGENT)}
+                      />
+                      <Text style={styles.agentTypeText}>{AGENT}</Text>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <RadioButton.Android
+                        value={DIRECT}
+                        color={colors.PRIMARY}
+                        status={
+                          selectedAgentType === DIRECT ? 'checked' : 'unchecked'
+                        }
+                        onPress={() => setSelectedAgentType(DIRECT)}
+                      />
+                      <Text style={styles.agentTypeText}>{DIRECT}</Text>
+                    </View>
                   </View>
-                  <View style={styles.nameContainer}>
-                    <TextInput
-                      autoCorrect={false}
-                      label={'Enter Agent Name'}
-                      onChangeText={handleChange('agentName')}
-                      onBlur={handleBlur('agentName')}
-                      value={values.agentName}
-                      mode={'outlined'}
-                      outlineColor={colors.PRIMARY}
-                      style={styles.textInput}
-                      theme={{
-                        colors: {
-                          primary: colors.PRIMARY,
-                        },
-                      }}
-                    />
-                    {touched.agentName && errors.agentName && (
-                      <Text style={styles.errorText}>{errors.agentName}</Text>
-                    )}
-                  </View>
-                  <View style={styles.emailContainer}>
-                    <TextInput
-                      autoCapitalize={'none'}
-                      autoCorrect={false}
-                      label={'Enter Agent Email Address'}
-                      onChangeText={handleChange('agentEmail')}
-                      onBlur={handleBlur('agentEmail')}
-                      value={values.agentEmail}
-                      mode={'outlined'}
-                      outlineColor={colors.PRIMARY}
-                      style={styles.textInput}
-                      theme={{
-                        colors: {
-                          primary: colors.PRIMARY,
-                        },
-                      }}
-                    />
-                    {touched.agentEmail && errors.agentEmail && (
-                      <Text style={styles.errorText}>{errors.agentEmail}</Text>
-                    )}
-                  </View>
+                  {selectedAgentType === AGENT ? (
+                    <>
+                      <View style={styles.nameContainer}>
+                        <TextInput
+                          autoCorrect={false}
+                          label={'Enter Agent Name'}
+                          onChangeText={handleChange('agentName')}
+                          onBlur={handleBlur('agentName')}
+                          value={values.agentName}
+                          mode={'outlined'}
+                          outlineColor={colors.PRIMARY}
+                          style={styles.textInput}
+                          theme={{
+                            colors: {
+                              primary: colors.PRIMARY,
+                            },
+                          }}
+                        />
+                        {touched.agentName && errors.agentName && (
+                          <Text style={styles.errorText}>
+                            {errors.agentName}
+                          </Text>
+                        )}
+                      </View>
+                      <View style={styles.emailContainer}>
+                        <TextInput
+                          autoCapitalize={'none'}
+                          autoCorrect={false}
+                          label={'Enter Agent Email Address'}
+                          onChangeText={handleChange('agentEmail')}
+                          onBlur={handleBlur('agentEmail')}
+                          value={values.agentEmail}
+                          mode={'outlined'}
+                          outlineColor={colors.PRIMARY}
+                          style={styles.textInput}
+                          theme={{
+                            colors: {
+                              primary: colors.PRIMARY,
+                            },
+                          }}
+                        />
+                        {touched.agentEmail && errors.agentEmail && (
+                          <Text style={styles.errorText}>
+                            {errors.agentEmail}
+                          </Text>
+                        )}
+                      </View>
+                    </>
+                  ) : null}
+
                   <Button
                     style={styles.buttonContainer}
                     mode={'contained'}

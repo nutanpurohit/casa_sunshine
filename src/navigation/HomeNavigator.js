@@ -2,7 +2,6 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../screens/Home';
 import colors from '../constants/colors';
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 
 const Stack = createStackNavigator();
 
