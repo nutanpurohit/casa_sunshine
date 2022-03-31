@@ -8,6 +8,9 @@ import {
   Image,
   Alert,
   TouchableOpacity,
+  Pressable,
+  Modal,
+  TextInput,
 } from 'react-native';
 import styles from './styles';
 import {Button, Card, List, Paragraph, Title} from 'react-native-paper';
@@ -31,7 +34,11 @@ const Index = props => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user?.user);
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState(user?.email);
+  const [modalVisible, setModalVisible] = useState(false);
+
   console.log('Props', props);
+  console.log('user', user);
   const onDeleteUser = async () => {
     Alert.alert('Delete Profile', 'Are you sure?', [
       {
@@ -43,6 +50,20 @@ const Index = props => {
         onPress: async () => await dispatch(userAction.deleteProfile()),
       },
     ]);
+  };
+
+  const onEditUser = () => {
+    setModalVisible(true);
+  };
+
+  const onCloseClick = () => {
+    setModalVisible(false);
+  };
+
+  const updateUser = async email => {
+    console.log('update user', email);
+    await dispatch(userAction.updateProfile(email));
+    setModalVisible(false);
   };
 
   const handleLogout = async () => {
@@ -70,10 +91,10 @@ const Index = props => {
               )}`}
             />
             <Card.Content>
-              <Title>{user?.email}</Title>
+              <Title>{email}</Title>
             </Card.Content>
             <Card.Actions>
-              <Button color={colors.PRIMARY} onPress={() => alert('Update')}>
+              <Button color={colors.PRIMARY} onPress={() => onEditUser()}>
                 Update
               </Button>
               <Button color={colors.PRIMARY} onPress={() => onDeleteUser()}>
@@ -163,6 +184,45 @@ const Index = props => {
           />
         </View>
       </ScrollView>
+      <Modal
+        visible={modalVisible && !isLoading}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+          }}>
+          <View style={styles.editView}>
+            <Text style={styles.updateTitle}>{'Update Email!'}</Text>
+            <TextInput
+              value={email}
+              style={styles.textField}
+              returnKeyType={'done'}
+              // maxLength={14}
+              onChangeText={text => {
+                console.log('email update', text);
+                setEmail(text);
+              }}
+            />
+            <TouchableOpacity style={styles.crossButton} onPress={onCloseClick}>
+              <Text style={styles.crossButtonText}>X</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonStyle}
+              onPress={() => {
+                updateUser(email);
+              }}>
+              <Text>Update</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };

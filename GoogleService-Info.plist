@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>92690946583-b6h7lhltu6d3460q1lgkcnmea0hh849j.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.92690946583-b6h7lhltu6d3460q1lgkcnmea0hh849j</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBz_lH0u-3IjyA_GKczCEywfhHXlBkWSO8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>92690946583</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.casasunshine</string>
+	<key>PROJECT_ID</key>
+	<string>casasunshine-91ea3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>casasunshine-91ea3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:92690946583:ios:feb5d411a8dc09e1d19a52</string>
+</dict>
+</plist>

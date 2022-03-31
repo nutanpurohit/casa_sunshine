@@ -1,6 +1,6 @@
 import {WEATHER_MAP_API_KEY} from '@env';
 
-export const BASE_URL = 'http:localhost:3000/';
+export const BASE_URL = 'http:127.0.0.1:3000/';
 // export const BASE_URL = 'https://192.168.200.51:3000/';
 // export const BASE_URL = 'http://10.0.2.2:3000/';
 export const WEATHER_API = `https://api.openweathermap.org/data/2.5/weather?lat=15.589775&lon=73.771049&appid=${WEATHER_MAP_API_KEY}&units=metric`;

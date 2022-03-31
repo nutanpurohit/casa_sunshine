@@ -6,9 +6,11 @@ import {
   USER_LOGIN_URL,
   USER_LOGOUT_URL,
   USER_SIGNUP_URL,
+  USER_UPDATE_URL,
 } from '../../api/apiConstants';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import {toLocalPath} from "babel-plugin-module-resolver/lib/utils";
 
 export const login = (email, password) => {
   return async dispatch => {
@@ -177,6 +179,36 @@ export const deleteProfile = () => {
       dispatch({type: SET_LOGOUT});
     } catch (err) {
       console.log('Error', err);
+    }
+  };
+};
+
+export const updateProfile = email => {
+  return async (dispatch, getState) => {
+    const API_URL = BASE_URL + USER_UPDATE_URL;
+    try {
+      const token = getState().user.token;
+      await axios
+        .patch(
+          API_URL,
+          {
+            email,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + token,
+            },
+          },
+        )
+        .then(response => {
+          console.log('update profile response', response);
+        })
+        .catch(error => {
+          console.log('update profile error', error);
+        });
+    } catch (e) {
+      throw new Error(e.message);
     }
   };
 };
