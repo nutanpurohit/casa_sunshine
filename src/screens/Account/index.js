@@ -35,6 +35,7 @@ const Index = props => {
   const user = useSelector(state => state.user?.user);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState(user?.email);
+  const [updateEmail, setUpdateEmail] = useState(user?.email);
   const [modalVisible, setModalVisible] = useState(false);
 
   console.log('Props', props);
@@ -61,8 +62,8 @@ const Index = props => {
   };
 
   const updateUser = async email => {
-    console.log('update user', email);
     await dispatch(userAction.updateProfile(email));
+    setEmail(updateEmail);
     setModalVisible(false);
   };
 
@@ -201,13 +202,12 @@ const Index = props => {
           <View style={styles.editView}>
             <Text style={styles.updateTitle}>{'Update Email!'}</Text>
             <TextInput
-              value={email}
+              value={updateEmail}
               style={styles.textField}
               returnKeyType={'done'}
               // maxLength={14}
               onChangeText={text => {
-                console.log('email update', text);
-                setEmail(text);
+                setUpdateEmail(text);
               }}
             />
             <TouchableOpacity style={styles.crossButton} onPress={onCloseClick}>
