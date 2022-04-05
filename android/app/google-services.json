@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "92690946583",
+    "project_id": "casasunshine-91ea3",
+    "storage_bucket": "casasunshine-91ea3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92690946583:android:d97e693bf1354f82d19a52",
+        "android_client_info": {
+          "package_name": "com.casa_sunshine_frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "92690946583-5hrgnnohqj7v6ko09mqvvaak03eskl8q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf-PHP6F-f6WAxCQHW0H7aDoeN-x-cOVY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "92690946583-5hrgnnohqj7v6ko09mqvvaak03eskl8q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
