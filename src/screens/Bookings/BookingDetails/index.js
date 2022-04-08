@@ -146,7 +146,7 @@ const Index = props => {
   };
 
   const onGenerateBookingReport = async bookingId => {
-    await dispatch(bookingAction.generateBookingReport(bookingId));
+    // await dispatch(bookingAction.generateBookingReport(bookingId));
     props.navigation.navigate('BookingReportScreen');
   };
 

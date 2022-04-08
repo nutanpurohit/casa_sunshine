@@ -14,6 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
+import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -81,6 +82,14 @@ public class MainApplication extends Application implements ReactApplication {
       }
     }
   }
+
+     @Override
+        protected List<ReactPackage> getPackages() {
+          return Arrays.<ReactPackage>asList(
+              new MainReactPackage(),
+              new RNHTMLtoPDFPackage()
+          );
+        }
 
     @Override
     protected List<ReactPackage> getPackages() {
